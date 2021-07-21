@@ -1,0 +1,55 @@
+{
+  "titles": {
+    "login": "Daxil ol",
+    "register": "Qeydiyyatdan keç",
+    "forgetpass": "Şifrəmi unutdum",
+    "setpass": "Şifrə təyin et",
+    "setfinger": "Barmaq izi təyin et",
+    "welcome": "Xoş gəldiniz",
+    "categories": "Kateqoriyalar",
+    "popularproducts": "Populyar məhsullar",
+    "buckets": "Səbət",
+    "checkout": "Ödəniş öncəsi",
+    "check": "Çek",
+    "account": "Hesab"
+  },
+  "descriptions": {
+    "login": "Shopstore hesabınıza daxil olaraq onlayn alışverişinizi edə bilərsiniz",
+    "register": "Shopstore hesabını yaradaraq onlayn alışverişinizi edə bilərsiniz",
+    "forgetpass": "Shopstore hesabınızın şifrəsini dəyişmək üçün qeydiyyatdan keçdiyiniz e-mail ünvanını daxil edin",
+    "pass1": "Şifrəni daxil et",
+    "pass2": "Şifrəni təkrar daxil et",
+    "catcount": "məhsul"
+  },
+  "form": {
+    "email": "Elektron poçt",
+    "pass": "Şifrə",
+    "name": "Ad",
+    "loc": "Məkan"
+  },
+  "buttons": {
+    "submit": "Təsdiq",
+    "cancel": "Ləğv et",
+    "testfinger": "Barmaq izi",
+    "pay": "Ödə"
+  },
+  "extra": {
+    "subtotal": "Ümumi məbləğ",
+    "tax": "Vergi",
+    "delivery": "Çatdırılma",
+    "free": "Pulsuz",
+    "productcount": "Məhsul sayı",
+    "deliveryaddress": "Çatdırılma adresi",
+    "paymentCard": "Ödəniş kartı"
+  },
+  "drawer": {
+    "home": "Əsas səhifə",
+    "cards": "Kartlar",
+    "bonuses": "Bonus kartlar",
+    "map": "Xəritə",
+    "history": "Tarixçə",
+    "contactus": "Bizimlə əlaqə",
+    "settings": "Parametrlər",
+    "logout": "Çıxış et"
+  }
+}
