@@ -24,7 +24,7 @@ export default class Banner extends React.Component {
     return (
       <TouchableOpacity style={styles.container}>
         <Image
-          source={{ uri: item.image }}
+          source={{ uri: this.props.product ? item : item.image }}
           style={{
             width,
             height: "100%",

@@ -3,46 +3,29 @@ import {
   View,
   StyleSheet,
   StatusBar,
-  TouchableOpacity,
   Dimensions,
+  TextInput,
+  TouchableOpacity,
 } from "react-native";
-import { Colors, Styles, FontSize } from "../../../constants/Theme";
-import Banner from "./components/Banner";
 import TextComponent from "../../../constants/TextComponent";
-import {
-  Feather,
-  MaterialCommunityIcons,
-  MaterialIcons,
-  FontAwesome5,
-  AntDesign,
-} from "@expo/vector-icons";
-import Categories from "./components/Categories";
-import Constants from "expo-constants";
-import { getLang, t } from "../../../functions/lang";
-import Products from "./components/Products";
+import { Colors, FontSize, Styles } from "../../../constants/Theme";
+import { t } from "../../../functions/lang";
 const { width } = Dimensions.get("window");
+import {
+  AntDesign,
+  FontAwesome5,
+  Feather,
+  MaterialIcons,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
+import Constants from "expo-constants";
+import Categories from "../home/components/Categories";
+import Products from "../home/components/Products";
 
-export default class Home extends React.Component {
+export default class Category extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      banners: [
-        {
-          id: 1,
-          image:
-            "https://demo.shopstore.az/image/cache/catalog/000_sliders/AirPods-Max-ru-1220x600-1220x600.jpg",
-        },
-        {
-          id: 2,
-          image:
-            "https://demo.shopstore.az/image/cache/catalog/000_sliders/main-page-slide-1-Recoveredru-1220x600-1220x600.jpg",
-        },
-        {
-          id: 3,
-          image:
-            "https://demo.shopstore.az/image/cache/catalog/000_sliders/Tamkart-1220x600-1220x600.jpg",
-        },
-      ],
       categories: [
         {
           id: 1,
@@ -51,7 +34,7 @@ export default class Home extends React.Component {
             <MaterialIcons
               name="computer"
               size={FontSize.m * 2}
-              color="white"
+              color={Colors.primary1}
             />
           ),
           itemCount: 100,
@@ -60,7 +43,11 @@ export default class Home extends React.Component {
           id: 2,
           name: "Telefon",
           icon: (
-            <Feather name="smartphone" size={FontSize.m * 2} color="white" />
+            <Feather
+              name="smartphone"
+              size={FontSize.m * 2}
+              color={Colors.primary1}
+            />
           ),
           itemCount: 3500,
         },
@@ -71,7 +58,7 @@ export default class Home extends React.Component {
             <FontAwesome5
               name="headphones-alt"
               size={FontSize.m * 2}
-              color="white"
+              color={Colors.primary1}
             />
           ),
           itemCount: 90,
@@ -79,7 +66,9 @@ export default class Home extends React.Component {
         {
           id: 4,
           name: "Tv",
-          icon: <Feather name="tv" size={FontSize.m * 2} color="white" />,
+          icon: (
+            <Feather name="tv" size={FontSize.m * 2} color={Colors.primary1} />
+          ),
           itemCount: 20,
         },
         {
@@ -89,12 +78,13 @@ export default class Home extends React.Component {
             <MaterialCommunityIcons
               name="sim"
               size={FontSize.m * 2}
-              color="white"
+              color={Colors.primary1}
             />
           ),
           itemCount: 40,
         },
       ],
+      category: null,
       products: [
         {
           id: 1,
@@ -149,76 +139,46 @@ export default class Home extends React.Component {
     };
   }
 
-  componentDidMount() {
-    getLang();
+  getCat() {
+    return this.state.categories.map((e) => {
+      if (this.props.route.params.id == e.id) {
+        this.setState({
+          category: e,
+        });
+      }
+    });
+  }
+
+  componentWillMount() {
+    this.getCat();
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <StatusBar backgroundColor={Colors.white} barStyle="dark-content" />
-        <View style={styles.header}>
-          <View
-            style={[
-              Styles.center,
-              {
-                backgroundColor: Colors.white,
-                height: 50,
-                flexDirection: "row",
-                justifyContent: "space-between",
-                width: width,
-                paddingHorizontal: 20,
-              },
-            ]}
-          >
-            <TouchableOpacity
-              onPress={() => this.props.navigation.toggleDrawer()}
-            >
-              <AntDesign name="menufold" size={24} color="black" />
-            </TouchableOpacity>
-            <TextComponent size={FontSize.xl} color={Colors.black}>
-              Shop Store
-            </TextComponent>
-            <TouchableOpacity
-              onPress={() => this.props.navigation.navigate("Profile")}
-            >
-              <Feather name="user" size={24} color="black" />
-            </TouchableOpacity>
-          </View>
-          <Banner banners={this.state.banners} {...this.props} />
-        </View>
-        <View style={styles.content}>
-          <TextComponent
-            color={Colors.white}
-            size={FontSize.xxl}
-            style={{
-              marginTop: 8,
-              paddingHorizontal: 8,
-            }}
-            family="RobotoMono_bold"
-          >
-            {t("titles.categories")}
+        <StatusBar
+          backgroundColor={Colors.primary1}
+          barStyle={"light-content"}
+        />
+        <View style={[Styles.center, styles.header]}>
+          <TouchableOpacity onPress={() => this.props.navigation.pop()}>
+            <AntDesign name="arrowleft" size={24} color="white" />
+          </TouchableOpacity>
+          <TextComponent size={FontSize.xxxl} color={Colors.white}>
+            {this.state.category.name}
           </TextComponent>
+          <View />
+        </View>
+        <View style={[styles.content]}>
           <View style={{ paddingHorizontal: 8 }}>
             <Categories
               categories={this.state.categories}
               hide={true}
-              active={null}
+              active={this.state.category.id - 1}
               {...this.props}
+              color={Colors.primary1}
             />
           </View>
-          <TextComponent
-            color={Colors.white}
-            size={FontSize.xxl}
-            style={{
-              marginTop: 8,
-              paddingHorizontal: 8,
-            }}
-            family="RobotoMono_bold"
-          >
-            {t("titles.popularproducts")}
-          </TextComponent>
-
           <View style={{ paddingHorizontal: 8, flex: 1 }}>
             <Products products={this.state.products} {...this.props} />
           </View>
@@ -231,13 +191,17 @@ export default class Home extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.white,
   },
   header: {
-    flex: 0.3,
+    flex: 0.1,
+    backgroundColor: Colors.primary1,
+    flexDirection: "row",
+    justifyContent: "space-around",
   },
   content: {
-    flex: 0.7,
-    backgroundColor: Colors.primary1,
+    flex: 0.8,
+  },
+  footer: {
+    flex: 0.1,
   },
 });

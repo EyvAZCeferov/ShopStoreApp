@@ -33,13 +33,15 @@ import OneCheck from "./src/screens/tabs/bucket/OneCheck";
 
 // Drawer
 import Map from "./src/screens/tabs/drawer/maps";
-import Contactus from "./src/screens/tabs/drawer/contactus";
-
+import ContactUs from "./src/screens/tabs/drawer/contactus";
+import Settings from "./src/screens/tabs/drawer/settings";
 
 import { getLang } from "./src/functions/lang";
 import axios from "axios";
 import { Colors, TabIcon } from "./src/constants/Theme";
 import DrawerStyle from "./src/constants/DrawerStyle";
+import Category from "./src/screens/tabs/bucket/Category";
+import ProductOne from "./src/screens/tabs/bucket/ProductOne";
 
 const GlobalAuthStack = createStackNavigator();
 const GlobalAuthStackScreen = () => (
@@ -150,6 +152,8 @@ const BucketStackScreen = ({ navigation, route }) => {
       <BucketStack.Screen name="Buckets" component={Buckets} />
       <BucketStack.Screen name="Checkout" component={Checkout} />
       <BucketStack.Screen name="OneCheck" component={OneCheck} />
+      <BucketStack.Screen name="Category" component={Category} />
+      <BucketStack.Screen name="ProductOne" component={ProductOne} />
     </BucketStack.Navigator>
   );
 };
@@ -172,7 +176,6 @@ const HomeStackScreen = ({ navigation, route }) => {
     >
       <HomeStack.Screen name="Home" component={HomeDrawerScreeens} />
       <HomeStack.Screen name="Profile" component={Profile} />
-      <HomeStack.Screen name="Contactus" component={Contactus} />
     </HomeStack.Navigator>
   );
 };
@@ -187,10 +190,12 @@ const HomeDrawerScreeens = (props) => {
         animationEnabled: true,
         animationTypeForReplace: "push",
       }}
-      drawerContent={(props) => <DrawerStyle  {...props} />}
+      drawerContent={(props) => <DrawerStyle {...props} />}
     >
       <HomeDrawer.Screen name="Home" component={Home} />
       <HomeDrawer.Screen name="Maps" component={Map} />
+      <HomeStack.Screen name="Contactus" component={ContactUs} />
+      <HomeStack.Screen name="Settings" component={Settings} />
     </HomeDrawer.Navigator>
   );
 };

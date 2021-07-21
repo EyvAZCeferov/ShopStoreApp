@@ -8,14 +8,14 @@ export default class Products extends React.Component {
   }
 
   renderItem({ item, index }) {
-    return <Product data={item} key={index} />;
+    return <Product data={item} key={index} {...this.props} />;
   }
 
   render() {
     return (
       <FlatList
         data={this.props.products}
-        renderItem={this.renderItem}
+        renderItem={this.renderItem.bind(this)}
         keyExtractor={(item, index) => index.toString()}
         numColumns={2}
         style={styles.container}

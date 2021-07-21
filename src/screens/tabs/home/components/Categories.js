@@ -19,6 +19,14 @@ export default class Categories extends React.Component {
   renderItem({ item, index }) {
     return (
       <TouchableOpacity
+        onPress={() =>
+          this.props.navigation.navigate("Bucket", {
+            screen: "Category",
+            params: {
+              id: item.id,
+            },
+          })
+        }
         key={index}
         style={[
           Styles.center,
@@ -28,7 +36,7 @@ export default class Categories extends React.Component {
             marginRight: 15,
             marginTop: 12,
             borderWidth: 1.5,
-            borderColor: "white",
+            borderColor: this.props.color ?? "white",
             borderRadius: 90,
             backgroundColor:
               index == this.props.active ? Colors.primary2 : "transparent",
@@ -42,7 +50,9 @@ export default class Categories extends React.Component {
               width: 80,
               height: 80,
               borderWidth: this.props.hide ? 0 : 2,
-              borderColor: this.props.hide ? "transparent" : Colors.white,
+              borderColor: this.props.hide
+                ? "transparent"
+                : this.props.color ?? "white",
               borderRadius: 50,
               marginBottom: 10,
             },
@@ -51,13 +61,13 @@ export default class Categories extends React.Component {
           {item.icon}
         </View>
         {this.props.hide ? null : (
-          <TextComponent color={Colors.white} size={FontSize.xs}>
+          <TextComponent color={this.props.color ?? "white"} size={FontSize.xs}>
             {item.name}
           </TextComponent>
         )}
         {this.props.hide ? null : (
           <TextComponent
-            color={Colors.white}
+            color={this.props.color ?? "white"}
             size={FontSize.xxl / 2}
             style={{
               marginTop: 5,

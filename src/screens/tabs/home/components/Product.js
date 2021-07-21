@@ -18,7 +18,65 @@ export default class Product extends React.Component {
   }
   render() {
     return (
-      <TouchableOpacity style={[styles.container, Styles.center]}>
+      <TouchableOpacity
+        style={[styles.container, Styles.center]}
+        onPress={() =>
+          this.props.navigation.navigate("Bucket", {
+            screen: "ProductOne",
+            params: {
+              id: this.props.data.id,
+            },
+          })
+        }
+      >
+        <View
+          style={{
+            position: "absolute",
+            top: 8,
+            left: 8,
+            flexDirection: "row",
+            justifyContent: "space-between",
+            zIndex: 999,
+            width: 80,
+          }}
+        >
+          <View
+            style={{
+              width: 10,
+              height: 10,
+              backgroundColor: Colors.error,
+              marginRight: 3,
+            }}
+          />
+          <View
+            style={{
+              width: 10,
+              height: 10,
+              backgroundColor: Colors.success,
+            }}
+          />
+          <View
+            style={{
+              width: 10,
+              height: 10,
+              backgroundColor: Colors.black,
+            }}
+          />
+          <View
+            style={{
+              width: 10,
+              height: 10,
+              backgroundColor: Colors.primary2,
+            }}
+          />
+          <View
+            style={{
+              width: 10,
+              height: 10,
+              backgroundColor: Colors.primary1,
+            }}
+          />
+        </View>
         <Image
           source={{ uri: this.props.data.images[0] }}
           style={{
@@ -83,7 +141,7 @@ export default class Product extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    width: 177,
+    width: 180,
     backgroundColor: Colors.white,
     marginRight: 10,
     marginBottom: 10,

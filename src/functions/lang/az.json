@@ -11,7 +11,8 @@
     "buckets": "Səbət",
     "checkout": "Ödəniş öncəsi",
     "check": "Çek",
-    "account": "Hesab"
+    "account": "Hesab",
+    "category": "Kateqoriya"
   },
   "descriptions": {
     "login": "Shopstore hesabınıza daxil olaraq onlayn alışverişinizi edə bilərsiniz",
@@ -40,7 +41,8 @@
     "free": "Pulsuz",
     "productcount": "Məhsul sayı",
     "deliveryaddress": "Çatdırılma adresi",
-    "paymentCard": "Ödəniş kartı"
+    "paymentCard": "Ödəniş kartı",
+    "noresult": "Məlumat yoxdur"
   },
   "drawer": {
     "home": "Əsas səhifə",

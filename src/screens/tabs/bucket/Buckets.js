@@ -13,7 +13,16 @@ import { Colors, FontSize, Styles } from "../../../constants/Theme";
 import { t } from "../../../functions/lang";
 import Constants from "expo-constants";
 const { width } = Dimensions.get("window");
-import { AntDesign, Entypo, Ionicons } from "@expo/vector-icons";
+import {
+  AntDesign,
+  Entypo,
+  Ionicons,
+  MaterialCommunityIcons,
+  MaterialIcons,
+  Feather,
+  FontAwesome5,
+} from "@expo/vector-icons";
+import Categories from "../home/components/Categories";
 
 export default class Buckets extends React.Component {
   constructor(props) {
@@ -68,6 +77,65 @@ export default class Buckets extends React.Component {
             "https://demo.shopstore.az/image/cache/catalog/skin-keys-for-apple-pencil-mpql2-500x600.jpg",
             "https://demo.shopstore.az/image/cache/catalog/apple-pencil-case-taupe-2.1000x1000-570x684.jpg",
           ],
+        },
+      ],
+
+      categories: [
+        {
+          id: 1,
+          name: "Kompyuter",
+          icon: (
+            <MaterialIcons
+              name="computer"
+              size={FontSize.m * 2}
+              color={Colors.primary1}
+            />
+          ),
+          itemCount: 100,
+        },
+        {
+          id: 2,
+          name: "Telefon",
+          icon: (
+            <Feather
+              name="smartphone"
+              size={FontSize.m * 2}
+              color={Colors.primary1}
+            />
+          ),
+          itemCount: 3500,
+        },
+        {
+          id: 3,
+          name: "Qulaqlıq",
+          icon: (
+            <FontAwesome5
+              name="headphones-alt"
+              size={FontSize.m * 2}
+              color={Colors.primary1}
+            />
+          ),
+          itemCount: 90,
+        },
+        {
+          id: 4,
+          name: "Tv",
+          icon: (
+            <Feather name="tv" size={FontSize.m * 2} color={Colors.primary1} />
+          ),
+          itemCount: 20,
+        },
+        {
+          id: 5,
+          name: "Nömrələr",
+          icon: (
+            <MaterialCommunityIcons
+              name="sim"
+              size={FontSize.m * 2}
+              color={Colors.primary1}
+            />
+          ),
+          itemCount: 40,
         },
       ],
     };
@@ -196,11 +264,27 @@ export default class Buckets extends React.Component {
           </TouchableOpacity>
         </View>
         <View style={styles.content}>
-          <FlatList
-            data={this.state.products}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={this.renderItem.bind(this)}
+          <Categories
+            categories={this.state.categories}
+            hide={true}
+            active={null}
+            {...this.props}
+            color={Colors.primary1}
           />
+
+          {this.state.products.length > 0 ? (
+            <FlatList
+              data={this.state.products}
+              keyExtractor={(item, index) => index.toString()}
+              renderItem={this.renderItem.bind(this)}
+            />
+          ) : (
+            <View style={[Styles.center, { flex: 1 }]}>
+              <TextComponent size={FontSize.xxxl} color={Colors.error}>
+                {t("extra.noresult")}
+              </TextComponent>
+            </View>
+          )}
         </View>
       </View>
     );
@@ -220,5 +304,6 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 0.9,
+    paddingHorizontal: Constants.statusBarHeight / 3,
   },
 });

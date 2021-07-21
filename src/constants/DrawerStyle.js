@@ -78,7 +78,7 @@ export default function DrawerStyle(props) {
           <View />
         </TouchableOpacity>
         <View style={styles.seperator} />
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={styles.oneElement}
           onPress={() => props.navigation.navigate("History")}
         >
@@ -92,7 +92,7 @@ export default function DrawerStyle(props) {
           </View>
           <View />
         </TouchableOpacity>
-        <View style={styles.seperator} />
+        <View style={styles.seperator} /> */}
         <TouchableOpacity
           style={styles.oneElement}
           onPress={() => props.navigation.navigate("Contactus")}
