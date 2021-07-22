@@ -42,6 +42,7 @@ import { Colors, TabIcon } from "./src/constants/Theme";
 import DrawerStyle from "./src/constants/DrawerStyle";
 import Category from "./src/screens/tabs/bucket/Category";
 import ProductOne from "./src/screens/tabs/bucket/ProductOne";
+import Chats from "./src/screens/tabs/chats/chats";
 
 const GlobalAuthStack = createStackNavigator();
 const GlobalAuthStackScreen = () => (
@@ -128,7 +129,7 @@ const TabNavigatorScreens = () => {
     >
       <TabNavigator.Screen name="Bucket" component={BucketStackScreen} />
       <TabNavigator.Screen name="Home" component={HomeStackScreen} />
-      <TabNavigator.Screen name="Messages" component={Home} />
+      <TabNavigator.Screen name="Messages" component={Chats} />
     </TabNavigator.Navigator>
   );
 };
