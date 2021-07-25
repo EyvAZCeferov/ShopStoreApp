@@ -141,6 +141,15 @@ export default class ProgramLock extends React.Component {
           >
             {t("titles.welcome")}
           </TextComponent>
+          <TextComponent
+            color={Colors.white}
+            size={FontSize.xxxl}
+            style={{
+              marginBottom: 15,
+            }}
+          >
+            {t("form.name")} Soyad
+          </TextComponent>
           <View
             style={{
               width: width - 50,
@@ -153,15 +162,6 @@ export default class ProgramLock extends React.Component {
               {...this.props}
             />
           </View>
-          <TextComponent
-            color={Colors.white}
-            size={FontSize.xxxl}
-            style={{
-              marginTop: 15,
-            }}
-          >
-            {t("form.name")}
-          </TextComponent>
         </View>
         <View style={styles.content}>
           <NumberButtons
