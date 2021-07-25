@@ -11,10 +11,10 @@ import TextComponent from "../../../constants/TextComponent";
 import Constants from "expo-constants";
 import { t } from "../../../functions/lang";
 const { width } = Dimensions.get("window");
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export default class SetFinger extends React.Component {
+export default class SetFace extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -31,7 +31,7 @@ export default class SetFinger extends React.Component {
     let permission = await LocalAuthentication.hasHardwareAsync();
     if (permission) {
       let type = await LocalAuthentication.supportedAuthenticationTypesAsync();
-      let isFinger = type.includes(1);
+      let isFinger = type.includes(0);
       if (isFinger) {
         let enroll = await LocalAuthentication.isEnrolledAsync();
         if (enroll) {
@@ -150,9 +150,9 @@ export default class SetFinger extends React.Component {
           </TextComponent>
         </TouchableOpacity>
 
-        <Ionicons
-          name="finger-print-outline"
-          size={FontSize.xxxl * 5}
+        <MaterialCommunityIcons
+          name="face-recognition"
+          size={FontSize.xxxl * 3}
           color="black"
         />
         <TextComponent
@@ -162,7 +162,7 @@ export default class SetFinger extends React.Component {
             marginTop: Constants.statusBarHeight,
           }}
         >
-          {t("titles.setfinger")}
+          {t("titles.setface")}
         </TextComponent>
       </View>
     );

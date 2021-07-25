@@ -105,6 +105,15 @@ export default class Home extends React.Component {
             "https://demo.shopstore.az/image/cache/catalog/11%20black%202-570x684.jpg",
             "https://demo.shopstore.az/image/cache/catalog/11%20black%203-570x684.jpg",
           ],
+          attributes: [
+            { id: 1, key: "Producer", value: "Apple" },
+            { id: 2, key: "Processor", value: "Apple M1" },
+            { id: 3, key: "Device type", value: "Smartphone" },
+            { id: 4, key: "Operating system", value: "IOS" },
+            { id: 5, key: "Body material", value: "Alüminium and glass" },
+            { id: 6, key: "Random Access Memory", value: "4 GB" },
+            { id: 7, key: "Internal Memory", value: "128 GB" },
+          ],
         },
         {
           id: 2,
@@ -115,6 +124,15 @@ export default class Home extends React.Component {
             "https://demo.shopstore.az/image/cache/catalog/11%20gold%204-570x684.jpg",
             "https://demo.shopstore.az/image/cache/catalog/gold%2011%202-570x684.jpg",
           ],
+          attributes: [
+            { id: 1, key: "Producer", value: "Apple" },
+            { id: 2, key: "Processor", value: "Apple M1" },
+            { id: 3, key: "Device type", value: "Smartphone" },
+            { id: 4, key: "Operating system", value: "IOS" },
+            { id: 5, key: "Body material", value: "Alüminium and glass" },
+            { id: 6, key: "Random Access Memory", value: "4 GB" },
+            { id: 7, key: "Internal Memory", value: "128 GB" },
+          ],
         },
         {
           id: 3,
@@ -123,6 +141,15 @@ export default class Home extends React.Component {
           images: [
             "https://demo.shopstore.az/image/cache/catalog/Plansets/Alcatel/alcatel_alcatel1T7_component_mobile_1-500x600.png",
             "https://demo.shopstore.az/image/cache/catalog/Plansets/Alcatel/download-570x684.png",
+          ],
+          attributes: [
+            { id: 1, key: "Producer", value: "Apple" },
+            { id: 2, key: "Processor", value: "Apple M1" },
+            { id: 3, key: "Device type", value: "Smartphone" },
+            { id: 4, key: "Operating system", value: "IOS" },
+            { id: 5, key: "Body material", value: "Alüminium and glass" },
+            { id: 6, key: "Random Access Memory", value: "4 GB" },
+            { id: 7, key: "Internal Memory", value: "128 GB" },
           ],
         },
         {
@@ -135,6 +162,15 @@ export default class Home extends React.Component {
             "https://demo.shopstore.az/image/cache/catalog/iKlinikstores-Product-AirPods-BG-570x684.jpg",
             "https://demo.shopstore.az/image/cache/catalog/0039175_4-570x684.png",
           ],
+          attributes: [
+            { id: 1, key: "Producer", value: "Apple" },
+            { id: 2, key: "Processor", value: "Apple M1" },
+            { id: 3, key: "Device type", value: "Smartphone" },
+            { id: 4, key: "Operating system", value: "IOS" },
+            { id: 5, key: "Body material", value: "Alüminium and glass" },
+            { id: 6, key: "Random Access Memory", value: "4 GB" },
+            { id: 7, key: "Internal Memory", value: "128 GB" },
+          ],
         },
         {
           id: 5,
@@ -143,6 +179,15 @@ export default class Home extends React.Component {
           images: [
             "https://demo.shopstore.az/image/cache/catalog/skin-keys-for-apple-pencil-mpql2-500x600.jpg",
             "https://demo.shopstore.az/image/cache/catalog/apple-pencil-case-taupe-2.1000x1000-570x684.jpg",
+          ],
+          attributes: [
+            { id: 1, key: "Producer", value: "Apple" },
+            { id: 2, key: "Processor", value: "Apple M1" },
+            { id: 3, key: "Device type", value: "Smartphone" },
+            { id: 4, key: "Operating system", value: "IOS" },
+            { id: 5, key: "Body material", value: "Alüminium and glass" },
+            { id: 6, key: "Random Access Memory", value: "4 GB" },
+            { id: 7, key: "Internal Memory", value: "128 GB" },
           ],
         },
       ],

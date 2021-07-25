@@ -1,17 +1,8 @@
 import React from "react";
-import {
-  View,
-  StyleSheet,
-  Dimensions,
-  TouchableOpacity,
-  FlatList,
-  ActivityIndicator,
-  
-} from "react-native";
+import { View, StyleSheet, FlatList, ActivityIndicator } from "react-native";
 import { t } from "../../../functions/lang";
-import MapView, { Callout, Marker } from "react-native-maps";
+import MapView, { Marker, Callout } from "react-native-maps";
 import TextComponent from "../../../constants/TextComponent";
-const { width } = Dimensions.get("window");
 import { mapStyle } from "./components/mapstyle";
 import { Colors, FontSize } from "../../../constants/Theme";
 import * as Location from "expo-location";
@@ -40,13 +31,19 @@ export default class Map extends React.Component {
             longitude: "49.8468167",
           },
         },
+        {
+          id: 3,
+          name: "Ozum",
+          coords: {
+            latitude: "40.3945714",
+            longitude: "49.7849202",
+          },
+        },
       ],
-      markerCount: 2,
       refresh: true,
       visible: false,
       snackBarMessage: null,
       snackBarStyle: null,
-      mapViewDirection: null,
     };
   }
 
@@ -80,50 +77,19 @@ export default class Map extends React.Component {
           latitude: parseFloat(item.coords.latitude),
           longitude: parseFloat(item.coords.longitude),
         }}
-        onPress={() => this.toLoc(item.coords)}
       >
         <Callout>
-          <TouchableOpacity>
-            <TextComponent
-              style={{
-                color: Colors.primary2,
-                fontSize: FontSize.s,
-                marginTop: 2,
-              }}
-            >
-              {item.name}
-            </TextComponent>
-          </TouchableOpacity>
+          <View
+            style={{
+              width: 200,
+              height: 150,
+            }}
+          >
+            <TextComponent>Hi</TextComponent>
+          </View>
         </Callout>
       </Marker>
     );
-  }
-
-  search(key) {
-    if (key != null) {
-      var datas = [];
-      this.state.markers.map((e) => {
-        var markername = langConvert(e.name, "name");
-        var res = markername.match(`${key}`);
-        if (res) {
-          datas.push(e);
-        }
-      });
-      if (datas.length == 0) {
-        this.getPerm();
-      } else {
-        this.setState({
-          markers: datas,
-        });
-      }
-    } else {
-      this.getPerm();
-    }
-  }
-
-  toLoc(geometry) {
-    this.setState({ mapViewDirection: geometry });
-    this.renderBody();
   }
 
   renderBody() {

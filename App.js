@@ -21,15 +21,21 @@ import Register from "./src/screens/auth/global/register";
 import Forgetpass from "./src/screens/auth/global/forgetpass";
 import SetPass from "./src/screens/auth/verify/setPass";
 import SetFinger from "./src/screens/auth/verify/setfinger";
+import SetFace from "./src/screens/auth/verify/setface";
 import ProgramLock from "./src/screens/auth/verify/programlock";
 
 // Tabs
 import Home from "./src/screens/tabs/home/Home";
 import Profile from "./src/screens/tabs/home/Profile";
+import History from "./src/screens/tabs/drawer/history";
 
 import Buckets from "./src/screens/tabs/bucket/Buckets";
 import Checkout from "./src/screens/tabs/bucket/Checkout";
 import OneCheck from "./src/screens/tabs/bucket/OneCheck";
+import ProductOne from "./src/screens/tabs/bucket/ProductOne";
+import Category from "./src/screens/tabs/bucket/Category";
+
+import Chats from "./src/screens/tabs/chats/chats";
 
 // Drawer
 import Map from "./src/screens/tabs/drawer/maps";
@@ -40,9 +46,9 @@ import { getLang } from "./src/functions/lang";
 import axios from "axios";
 import { Colors, TabIcon } from "./src/constants/Theme";
 import DrawerStyle from "./src/constants/DrawerStyle";
-import Category from "./src/screens/tabs/bucket/Category";
-import ProductOne from "./src/screens/tabs/bucket/ProductOne";
-import Chats from "./src/screens/tabs/chats/chats";
+
+import store from "./src/functions/store";
+import { Provider } from "react-redux";
 
 const GlobalAuthStack = createStackNavigator();
 const GlobalAuthStackScreen = () => (
@@ -57,8 +63,9 @@ const GlobalAuthStackScreen = () => (
     <GlobalAuthStack.Screen name="Login" component={Login} />
     <GlobalAuthStack.Screen name="Register" component={Register} />
     <GlobalAuthStack.Screen name="Forgetpass" component={Forgetpass} />
-    <GlobalAuthStackScreen name="SetPass" component={SetPass} />
-    <GlobalAuthStackScreen name="SetFinger" component={SetFinger} />
+    <GlobalAuthStack.Screen name="SetPass" component={SetPass} />
+    <GlobalAuthStack.Screen name="SetFinger" component={SetFinger} />
+    <GlobalAuthStack.Screen name="SetFace" component={SetFace} />
   </GlobalAuthStack.Navigator>
 );
 
@@ -80,57 +87,59 @@ const VerifyAuthStackScreen = () => (
 const TabNavigator = createBottomTabNavigator();
 const TabNavigatorScreens = () => {
   return (
-    <TabNavigator.Navigator
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size }) => {
-          let iconName;
-          if (route.name === "Home") {
-            iconName = focused ? TabIcon.homeFOCUSED : TabIcon.home;
-          } else if (route.name === "Barcode") {
-            iconName = focused ? TabIcon.barcodeFOCUSED : TabIcon.barcode;
-          } else if (route.name === "Bucket") {
-            iconName = focused ? TabIcon.bucketFOCUSED : TabIcon.bucket;
-          } else if (route.name === "Messages") {
-            iconName = focused ? TabIcon.messagesFOCUSED : TabIcon.messages;
-          } else if (route.name === "Info") {
-            iconName = focused ? TabIcon.infoFOCUSED : TabIcon.info;
-          }
-          return (
-            <View
-              style={{
-                width: 65,
-                height: 65,
-                justifyContent: "center",
-                alignContent: "center",
-                alignItems: "center",
-                textAlign: "center",
-                zIndex: 1,
-              }}
-            >
-              {iconName}
-            </View>
-          );
-        },
-      })}
-      tabBarOptions={{
-        showLabel: false,
-        activeTintColor: Colors.primary1,
-        activeBackgroundColor: Colors.primary1,
-        inactiveBackgroundColor: Colors.primary1,
+    <Provider store={store}>
+      <TabNavigator.Navigator
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
+            if (route.name === "Home") {
+              iconName = focused ? TabIcon.homeFOCUSED : TabIcon.home;
+            } else if (route.name === "Barcode") {
+              iconName = focused ? TabIcon.barcodeFOCUSED : TabIcon.barcode;
+            } else if (route.name === "Bucket") {
+              iconName = focused ? TabIcon.bucketFOCUSED : TabIcon.bucket;
+            } else if (route.name === "Messages") {
+              iconName = focused ? TabIcon.messagesFOCUSED : TabIcon.messages;
+            } else if (route.name === "Info") {
+              iconName = focused ? TabIcon.infoFOCUSED : TabIcon.info;
+            }
+            return (
+              <View
+                style={{
+                  width: 65,
+                  height: 65,
+                  justifyContent: "center",
+                  alignContent: "center",
+                  alignItems: "center",
+                  textAlign: "center",
+                  zIndex: 1,
+                }}
+              >
+                {iconName}
+              </View>
+            );
+          },
+        })}
+        tabBarOptions={{
+          showLabel: false,
+          activeTintColor: Colors.primary1,
+          activeBackgroundColor: Colors.primary1,
+          inactiveBackgroundColor: Colors.primary1,
 
-        inactiveTintColor: "white",
-        style: {
-          height: 75,
-          width: width,
-        },
-      }}
-      initialRouteName="Home"
-      detachInactiveScreens={true}
-    >
-      <TabNavigator.Screen name="Bucket" component={BucketStackScreen} />
-      <TabNavigator.Screen name="Home" component={HomeStackScreen} />
-      <TabNavigator.Screen name="Messages" component={Chats} />
-    </TabNavigator.Navigator>
+          inactiveTintColor: "white",
+          style: {
+            height: 75,
+            width: width,
+          },
+        }}
+        initialRouteName="Home"
+        detachInactiveScreens={true}
+      >
+        <TabNavigator.Screen name="Bucket" component={BucketStackScreen} />
+        <TabNavigator.Screen name="Home" component={HomeStackScreen} />
+        <TabNavigator.Screen name="Messages" component={Chats} />
+      </TabNavigator.Navigator>
+    </Provider>
   );
 };
 
@@ -177,6 +186,9 @@ const HomeStackScreen = ({ navigation, route }) => {
     >
       <HomeStack.Screen name="Home" component={HomeDrawerScreeens} />
       <HomeStack.Screen name="Profile" component={Profile} />
+      <HomeStack.Screen name="SetFinger" component={SetFinger} />
+      <HomeStack.Screen name="SetPass" component={SetPass} />
+      <HomeStack.Screen name="SetFace" component={SetFace} />
     </HomeStack.Navigator>
   );
 };
@@ -195,8 +207,9 @@ const HomeDrawerScreeens = (props) => {
     >
       <HomeDrawer.Screen name="Home" component={Home} />
       <HomeDrawer.Screen name="Maps" component={Map} />
-      <HomeStack.Screen name="Contactus" component={ContactUs} />
-      <HomeStack.Screen name="Settings" component={Settings} />
+      <HomeDrawer.Screen name="Contactus" component={ContactUs} />
+      <HomeDrawer.Screen name="Settings" component={Settings} />
+      <HomeDrawer.Screen name="History" component={History} />
     </HomeDrawer.Navigator>
   );
 };

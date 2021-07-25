@@ -14,8 +14,9 @@ const { width } = Dimensions.get("window");
 import { AntDesign, FontAwesome5 } from "@expo/vector-icons";
 import Constants from "expo-constants";
 import { LiteCreditCardInput } from "react-native-credit-card-input";
+import { connect } from "react-redux";
 
-export default class Checkout extends React.Component {
+class Checkout extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -26,6 +27,23 @@ export default class Checkout extends React.Component {
   _onChange = (data) => {
     this.setState({ card: data.values });
   };
+
+  qytCount() {
+    var qyt = 0;
+    this.props.bucketitems.map((e) => {
+      qyt += e.qyt;
+    });
+
+    return qyt;
+  }
+
+  priceCount() {
+    var price = 0;
+    this.props.bucketitems.map((e) => {
+      price += e.price * e.qyt;
+    });
+    return price;
+  }
 
   render() {
     return (
@@ -66,7 +84,9 @@ export default class Checkout extends React.Component {
               <TextComponent size={FontSize.s}>
                 {t("extra.subtotal")}
               </TextComponent>
-              <TextComponent size={FontSize.l}>0.5 AZN</TextComponent>
+              <TextComponent size={FontSize.l}>
+                {this.priceCount()} AZN
+              </TextComponent>
             </View>
             <View style={{ marginVertical: 5 }} />
             <View
@@ -76,7 +96,11 @@ export default class Checkout extends React.Component {
               }}
             >
               <TextComponent size={FontSize.s}>{t("extra.tax")}</TextComponent>
-              <TextComponent size={FontSize.l}>2.5 AZN</TextComponent>
+              <TextComponent size={FontSize.l}>
+                {Math.fround((this.priceCount() * 1.8) / 100)
+                  .toString()
+                  .substring(0, 5)}
+              </TextComponent>
             </View>
             <View style={{ marginVertical: 5 }} />
             <View
@@ -100,7 +124,7 @@ export default class Checkout extends React.Component {
               <TextComponent size={FontSize.s}>
                 {t("extra.productcount")}
               </TextComponent>
-              <TextComponent size={FontSize.l}>1</TextComponent>
+              <TextComponent size={FontSize.l}>{this.qytCount()}</TextComponent>
             </View>
             <View style={{ marginVertical: 5 }} />
           </View>
@@ -176,6 +200,22 @@ export default class Checkout extends React.Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    bucketitems: state.bucketitems,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addtoCard: (product) => dispatch({ type: "ADD_TO_CART", payload: product }),
+    removeCard: (product) =>
+      dispatch({ type: "REMOVE_FROM_CART", payload: product }),
+    updateVal: (product) => dispatch({ type: "UPDATE_CART", payload: product }),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Checkout);
 
 const styles = StyleSheet.create({
   container: {

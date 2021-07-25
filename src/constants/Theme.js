@@ -25,7 +25,7 @@ export const FontSize = {
   l: 20,
   xl: 22,
   xxl: 24,
-  xxxl: 24,
+  xxxl: 26,
 };
 
 export const Styles = {

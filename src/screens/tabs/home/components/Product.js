@@ -9,13 +9,31 @@ import {
 import TextComponent from "../../../../constants/TextComponent";
 import { Styles, Colors, FontSize } from "../../../../constants/Theme";
 const { width } = Dimensions.get("window");
-import Constants from "expo-constants";
 import { FontAwesome } from "@expo/vector-icons";
+import { connect } from "react-redux";
+import { t } from "../../../../functions/lang";
 
-export default class Product extends React.Component {
+class Product extends React.Component {
   constructor(props) {
     super(props);
   }
+
+  addProduct(item) {
+    var qyt = item.qyt ?? 0 + 1;
+    var data = {
+      name: item.name,
+      qyt: qyt,
+      price: item.price,
+      images: item.images,
+      id: item.id,
+    };
+    this.props.addtoCard(data);
+  }
+
+  deleteProduct(item) {
+    this.props.removeCard(item);
+  }
+
   render() {
     return (
       <TouchableOpacity
@@ -86,22 +104,49 @@ export default class Product extends React.Component {
             top: "2%",
           }}
         />
-        <TouchableOpacity
-          style={[
-            Styles.center,
-            {
-              width: 40,
-              height: 40,
-              borderRadius: 25,
-              backgroundColor: Colors.primary2,
-              position: "absolute",
-              top: 0,
-              right: 0,
-            },
-          ]}
-        >
-          <FontAwesome name="shopping-cart" size={20} color="black" />
-        </TouchableOpacity>
+
+        {this.props.bucketitems.find(
+          (element) => element.id == this.props.data.id
+        ) ? (
+          <TouchableOpacity
+            onPress={() => this.deleteProduct(this.props.data)}
+            style={[
+              Styles.center,
+              Styles.shadow,
+              {
+                width: 40,
+                height: 40,
+                borderRadius: 25,
+                backgroundColor: Colors.primary2,
+                position: "absolute",
+                top: 0,
+                right: 0,
+              },
+            ]}
+          >
+            <FontAwesome name="cart-arrow-down" size={20} color="black" />
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            onPress={() => this.addProduct(this.props.data)}
+            style={[
+              Styles.center,
+              Styles.shadow,
+              {
+                width: 40,
+                height: 40,
+                borderRadius: 25,
+                backgroundColor: Colors.primary2,
+                position: "absolute",
+                top: 0,
+                right: 0,
+              },
+            ]}
+          >
+            <FontAwesome name="shopping-cart" size={20} color="black" />
+          </TouchableOpacity>
+        )}
+
         <View
           style={Styles.center}
           style={{
@@ -138,6 +183,22 @@ export default class Product extends React.Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    bucketitems: state.bucketitems,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addtoCard: (product) => dispatch({ type: "ADD_TO_CART", payload: product }),
+    removeCard: (product) =>
+      dispatch({ type: "REMOVE_FROM_CART", payload: product }),
+    updateVal: (product) => dispatch({ type: "UPDATE_CART", payload: product }),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Product);
 
 const styles = StyleSheet.create({
   container: {

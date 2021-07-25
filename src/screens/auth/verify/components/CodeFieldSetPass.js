@@ -94,7 +94,14 @@ export default function CodeFieldSetPass(prop) {
       setValue("");
     }
     renderCodefield();
+    checkPass();
   });
+
+  async function checkPass() {
+    if (val.length == 4) {
+      prop.completed();
+    }
+  }
 
   function renderCodefield() {
     return (

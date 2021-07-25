@@ -19,12 +19,12 @@ export default function SnBar(props) {
           height: 50,
           width: width,
           opacity: props.visible ? 1 : 0,
-          zIndex: 9999,
+          zIndex: 99999999999,
         },
       ]}
     >
       <TextComponent color={Colors.white} size={FontSize.s}>
-        {props.message}
+        {props.snackBarMessage}
       </TextComponent>
     </View>
   );

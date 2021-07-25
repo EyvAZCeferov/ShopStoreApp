@@ -21,6 +21,7 @@ import {
 import Constants from "expo-constants";
 import Categories from "../home/components/Categories";
 import Products from "../home/components/Products";
+import { reset } from "../../../functions/helper";
 
 export default class Category extends React.Component {
   constructor(props) {

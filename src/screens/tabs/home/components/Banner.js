@@ -30,7 +30,7 @@ export default class Banner extends React.Component {
             height: "100%",
           }}
           resizeMethod="auto"
-          resizeMode="cover"
+          resizeMode={this.props.product ? "contain" : "cover"}
         />
         <TouchableOpacity
           style={[Styles.shadow, styles.leftButton, Styles.center]}

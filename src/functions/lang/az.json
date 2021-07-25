@@ -5,6 +5,7 @@
     "forgetpass": "Şifrəmi unutdum",
     "setpass": "Şifrə təyin et",
     "setfinger": "Barmaq izi təyin et",
+    "setface": "Üz tanıma təyin et",
     "welcome": "Xoş gəldiniz",
     "categories": "Kateqoriyalar",
     "popularproducts": "Populyar məhsullar",
@@ -36,7 +37,7 @@
   },
   "extra": {
     "subtotal": "Ümumi məbləğ",
-    "tax": "Vergi",
+    "tax": "Edv 18 %",
     "delivery": "Çatdırılma",
     "free": "Pulsuz",
     "productcount": "Məhsul sayı",
@@ -53,5 +54,17 @@
     "contactus": "Bizimlə əlaqə",
     "settings": "Parametrlər",
     "logout": "Çıxış et"
+  },
+  "settings": {
+    "lang": "Dil",
+    "selectlang": "Dil seç",
+    "termofuse": "İstifadə şərtləri",
+    "setpass": "Parol təyin et",
+    "setfinger": "Barmaq izi təyin et",
+    "setface": "Üz tanıma təyin et"
+  },
+  "actions": {
+    "added": "Əlavə olundu",
+    "deleted": "Silindi"
   }
 }

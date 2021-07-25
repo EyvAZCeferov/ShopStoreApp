@@ -23,63 +23,13 @@ import {
   FontAwesome5,
 } from "@expo/vector-icons";
 import Categories from "../home/components/Categories";
+import { connect } from "react-redux";
+import SnBar from "../../../constants/SnBAR";
 
-export default class Buckets extends React.Component {
+class Buckets extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      products: [
-        {
-          id: 1,
-          name: "Iphone 11 128GB",
-          price: 1819.0,
-          images: [
-            "https://demo.shopstore.az/image/cache/catalog/Phones/Apple/iphone-11-128gb-500x600.png",
-            "https://demo.shopstore.az/image/cache/catalog/11%20black%202-570x684.jpg",
-            "https://demo.shopstore.az/image/cache/catalog/11%20black%203-570x684.jpg",
-          ],
-        },
-        {
-          id: 2,
-          name: "iPhone 11 Pro 256 GB",
-          price: 2549.99,
-          images: [
-            "https://demo.shopstore.az/image/cache/catalog/iphone-11-pro-max-64-gb-500x600.jpg",
-            "https://demo.shopstore.az/image/cache/catalog/11%20gold%204-570x684.jpg",
-            "https://demo.shopstore.az/image/cache/catalog/gold%2011%202-570x684.jpg",
-          ],
-        },
-        {
-          id: 3,
-          name: "Alcatel Tab 1T 7.0-inch 32GB",
-          price: 209.0,
-          images: [
-            "https://demo.shopstore.az/image/cache/catalog/Plansets/Alcatel/alcatel_alcatel1T7_component_mobile_1-500x600.png",
-            "https://demo.shopstore.az/image/cache/catalog/Plansets/Alcatel/download-570x684.png",
-          ],
-        },
-        {
-          id: 4,
-          name: "Apple Airpods 2 MV7N2",
-          price: 339.99,
-          images: [
-            "https://demo.shopstore.az/image/cache/catalog/apple-airpods-2-mv7n2-500x600.jpg",
-            "https://demo.shopstore.az/image/cache/catalog/iKlinikstores-Product-AirPods-BG-2-570x684.jpg",
-            "https://demo.shopstore.az/image/cache/catalog/iKlinikstores-Product-AirPods-BG-570x684.jpg",
-            "https://demo.shopstore.az/image/cache/catalog/0039175_4-570x684.png",
-          ],
-        },
-        {
-          id: 5,
-          name: "Apple Pencil üçün Dəri Keys, (MPQL2)",
-          price: 80.0,
-          images: [
-            "https://demo.shopstore.az/image/cache/catalog/skin-keys-for-apple-pencil-mpql2-500x600.jpg",
-            "https://demo.shopstore.az/image/cache/catalog/apple-pencil-case-taupe-2.1000x1000-570x684.jpg",
-          ],
-        },
-      ],
-
       categories: [
         {
           id: 1,
@@ -138,7 +88,57 @@ export default class Buckets extends React.Component {
           itemCount: 40,
         },
       ],
+
+      visible: false,
+      snackBarMessage: null,
+      snackBarStyle: null,
     };
+  }
+
+  addProduct(item) {
+    var qyt = item.qyt ?? 0 + 1;
+    var data = {
+      name: item.name,
+      qyt: qyt,
+      price: item.price,
+      images: item.images,
+      id: item.id,
+    };
+    this.props.addtoCard(data);
+    this.setState({
+      visible: true,
+      snackBarMessage: t("actions.added"),
+      snackBarStyle: "success",
+    });
+    setTimeout(() => {
+      this.setState({ visible: false });
+    }, 1500);
+  }
+
+  deleteProduct(item) {
+    var qyt = 0;
+    {
+      this.props.bucketitems.map((element) => {
+        if (element.id == item.id) {
+          qyt = element.qyt;
+        }
+      });
+    }
+    if (qyt == 1) {
+      this.props.removeCard(item);
+    } else {
+      var value = parseInt(qyt) - 1;
+      this.props.updateVal({ item, value });
+    }
+
+    this.setState({
+      visible: true,
+      snackBarMessage: t("actions.deleted"),
+      snackBarStyle: "success",
+    });
+    setTimeout(() => {
+      this.setState({ visible: false });
+    }, 1500);
   }
 
   renderItem({ item, index }) {
@@ -153,6 +153,15 @@ export default class Buckets extends React.Component {
             marginBottom: Constants.statusBarHeight / 2,
           },
         ]}
+        key={index}
+        onPress={() =>
+          this.props.navigation.navigate("Bucket", {
+            screen: "ProductOne",
+            params: {
+              id: item.id,
+            },
+          })
+        }
       >
         <Image
           source={{ uri: item.images[0] }}
@@ -186,7 +195,7 @@ export default class Buckets extends React.Component {
             {item.name}
           </TextComponent>
           <TextComponent size={FontSize.m} color={Colors.black}>
-            1 {t("descriptions.catcount")}
+            {item.qyt} {t("descriptions.catcount")}
           </TextComponent>
           <TextComponent
             color={Colors.primary2}
@@ -197,7 +206,7 @@ export default class Buckets extends React.Component {
               flexWrap: "wrap",
             }}
           >
-            {item.price} AZN
+            {item.price * item.qyt} AZN
           </TextComponent>
         </View>
         <View
@@ -206,34 +215,58 @@ export default class Buckets extends React.Component {
             height: 60,
           }}
         >
-          <TouchableOpacity
-            style={[
-              Styles.center,
-              {
-                width: "100%",
-                height: "100%",
-                backgroundColor: Colors.success,
-                borderTopRightRadius: 8,
-                borderTopLeftRadius: 8,
-              },
-            ]}
-          >
-            <Ionicons name="add" size={24} color="white" />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[
-              Styles.center,
-              {
-                width: "100%",
-                height: "100%",
-                backgroundColor: Colors.error,
-                borderBottomRightRadius: 8,
-                borderBottomLeftRadius: 8,
-              },
-            ]}
-          >
-            <AntDesign name="delete" size={24} color="white" />
-          </TouchableOpacity>
+          {this.props.bucketitems.find((element) => element.id == item.id) ? (
+            <View
+              style={[
+                Styles.center,
+                {
+                  position: "absolute",
+                  bottom: 0,
+                  right: 0,
+                  backgroundColor: Colors.primary1,
+                  borderTopLeftRadius: 20,
+                  width: 30,
+                  height: 80,
+                },
+              ]}
+            >
+              <TouchableOpacity onPress={() => this.addProduct(item)}>
+                <Ionicons name="add" size={FontSize.xl} color={Colors.white} />
+              </TouchableOpacity>
+              <TextComponent style={{ color: Colors.white }} size={FontSize.s}>
+                {this.props.bucketitems.map((element) => {
+                  if (element.id == item.id) {
+                    return element.qyt;
+                  }
+                })}
+              </TextComponent>
+              <TouchableOpacity onPress={() => this.deleteProduct(item)}>
+                <MaterialCommunityIcons
+                  name="minus"
+                  size={FontSize.xl}
+                  color={Colors.white}
+                />
+              </TouchableOpacity>
+            </View>
+          ) : (
+            <TouchableOpacity
+              style={[
+                Styles.center,
+                {
+                  position: "absolute",
+                  bottom: 0,
+                  right: 0,
+                  backgroundColor: Colors.green1HEX,
+                  borderTopLeftRadius: 20,
+                  width: 30,
+                  height: 30,
+                },
+              ]}
+              onPress={() => this.addProduct(item)}
+            >
+              <Ionicons name="add" size={FontSize.xl} color={Colors.whiteHEX} />
+            </TouchableOpacity>
+          )}
         </View>
       </TouchableOpacity>
     );
@@ -272,9 +305,9 @@ export default class Buckets extends React.Component {
             color={Colors.primary1}
           />
 
-          {this.state.products.length > 0 ? (
+          {this.props.bucketitems.length > 0 ? (
             <FlatList
-              data={this.state.products}
+              data={this.props.bucketitems}
               keyExtractor={(item, index) => index.toString()}
               renderItem={this.renderItem.bind(this)}
             />
@@ -286,10 +319,32 @@ export default class Buckets extends React.Component {
             </View>
           )}
         </View>
+        <SnBar
+          visible={this.state.visible}
+          changeVisible={() => this.setState({ visible: false })}
+          snackBarMessage={this.state.snackBarMessage}
+          snackBarStyle={this.state.snackBarStyle}
+        />
       </View>
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    bucketitems: state.bucketitems,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addtoCard: (product) => dispatch({ type: "ADD_TO_CART", payload: product }),
+    removeCard: (product) =>
+      dispatch({ type: "REMOVE_FROM_CART", payload: product }),
+    updateVal: (product) => dispatch({ type: "UPDATE_CART", payload: product }),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Buckets);
 
 const styles = StyleSheet.create({
   container: {

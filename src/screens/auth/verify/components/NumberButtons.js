@@ -23,8 +23,8 @@ export default function NumberButtons(props) {
     props.clearVal();
   }
 
-  function RenderButtons() {
-    return (
+  return (
+    <View style={styles.container}>
       <Grid style={styles.grid}>
         <Row style={styles.alignCenter}>
           <Grid style={styles.alignCenter}>
@@ -122,7 +122,11 @@ export default function NumberButtons(props) {
                     borderColor: "transparent",
                   },
                 ]}
-                onPress={() => BackHandler.exitApp()}
+                onPress={() =>
+                  props.route.params.prevpage == "Settings"
+                    ? props.navigation.pop()
+                    : BackHandler.exitApp()
+                }
               >
                 <TextComponent
                   style={[styles.btnText, styles.cancText]}
@@ -156,10 +160,8 @@ export default function NumberButtons(props) {
           </Grid>
         </Row>
       </Grid>
-    );
-  }
-
-  return <View style={styles.container}>{RenderButtons()}</View>;
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({

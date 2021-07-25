@@ -39,6 +39,7 @@ export default class SetPass extends React.Component {
   }
 
   async completed() {
+    console.log("A");
     const { userToken, setUserToken } = this.context;
     const params = this.props.route.params;
     if (this.state.pass1 !== "" && this.state.pass2 !== "") {

@@ -39,8 +39,8 @@ export default function DrawerStyle(props) {
   //   }
 
   return (
-    <View>
-      <StatusBar backgroundColor="#fff" batStyle="dark-content" />
+    <View style={styles.container}>
+      <StatusBar backgroundColor={Colors.primary1} batStyle="auto" />
       <SafeAreaView style={styles.container}>
         <TouchableOpacity
           style={styles.oneElement}
@@ -51,7 +51,7 @@ export default function DrawerStyle(props) {
               name="home"
               size={24}
               style={{ fontWeight: "bold", textAlign: "right" }}
-              color={Colors.primary1}
+              color={Colors.white}
             />
           </View>
           <View>
@@ -68,7 +68,7 @@ export default function DrawerStyle(props) {
           onPress={() => props.navigation.navigate("Maps")}
         >
           <View>
-            <Feather name="map-pin" size={24} color={Colors.primary1} />
+            <Feather name="map-pin" size={24} color={Colors.white} />
           </View>
           <View>
             <TextComponent style={styles.texts}>
@@ -78,12 +78,12 @@ export default function DrawerStyle(props) {
           <View />
         </TouchableOpacity>
         <View style={styles.seperator} />
-        {/* <TouchableOpacity
+        <TouchableOpacity
           style={styles.oneElement}
           onPress={() => props.navigation.navigate("History")}
         >
           <View>
-            <MaterialIcons name="history" size={24} color={Colors.primary1} />
+            <MaterialIcons name="history" size={24} color={Colors.white} />
           </View>
           <View>
             <TextComponent style={styles.texts}>
@@ -92,13 +92,13 @@ export default function DrawerStyle(props) {
           </View>
           <View />
         </TouchableOpacity>
-        <View style={styles.seperator} /> */}
+        <View style={styles.seperator} />
         <TouchableOpacity
           style={styles.oneElement}
           onPress={() => props.navigation.navigate("Contactus")}
         >
           <View>
-            <AntDesign name="contacts" size={24} color={Colors.primary1} />
+            <AntDesign name="contacts" size={24} color={Colors.white} />
           </View>
           <View>
             <TextComponent style={styles.texts}>
@@ -117,7 +117,7 @@ export default function DrawerStyle(props) {
               name="setting"
               size={24}
               style={{ fontWeight: "bold" }}
-              color={Colors.primary1}
+              color={Colors.white}
             />
           </View>
           <View>
@@ -142,7 +142,7 @@ export default function DrawerStyle(props) {
               name="logout"
               size={24}
               style={{ fontWeight: "bold" }}
-              color={Colors.primary1}
+              color={Colors.white}
             />
           </View>
           <View>
@@ -162,8 +162,8 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     height: height,
-    marginTop: Constants.statusBarHeight,
-    backgroundColor: "#fff",
+    paddingTop: Constants.statusBarHeight / 3,
+    backgroundColor: Colors.primary1,
     flexWrap: "wrap",
   },
   oneElement: {
@@ -174,10 +174,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-around",
     textAlign: "left",
-    backgroundColor: "transparent",
     borderColor: "transparent",
     borderWidth: 0,
     paddingLeft: Constants.statusBarHeight,
+    backgroundColor: Colors.primary1,
   },
   seperator: {
     width: "100%",
@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
   },
   texts: {
     fontSize: 16,
-    color: Colors.primary1,
+    color: Colors.white,
     fontFamily: "RobotoMono_bold",
     textAlign: "left",
     width: width / 2,

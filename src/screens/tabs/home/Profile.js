@@ -6,9 +6,10 @@ import {
   TouchableOpacity,
   Image,
   Dimensions,
+  TextInput,
 } from "react-native";
 import { Colors, FontSize, Styles } from "../../../constants/Theme";
-import { AntDesign, Feather } from "@expo/vector-icons";
+import { AntDesign, Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 import { t } from "../../../functions/lang";
 import Constants from "expo-constants";
 import TextComponent from "../../../constants/TextComponent";
@@ -107,9 +108,14 @@ export default class Profile extends React.Component {
           </TextComponent>
           <View />
         </View>
+
         <View style={styles.content}>
           <View
-            style={[Styles.center, { width, backgroundColor: Colors.primary1 }]}
+            style={[
+              Styles.center,
+              ,
+              { flex: 0.3, backgroundColor: Colors.primary1 },
+            ]}
           >
             <View style={styles.imagePickerArena}>
               <View style={styles.imageArena}>
@@ -131,6 +137,97 @@ export default class Profile extends React.Component {
               </View>
             </View>
           </View>
+
+          <View style={{ flex: 0.5, marginTop: Constants.statusBarHeight }}>
+            <View
+              style={[
+                Styles.center,
+                {
+                  flexDirection: "column",
+                  justifyContent: "space-around",
+                },
+              ]}
+            >
+              <View style={[Styles.center, styles.inputArena]}>
+                <TouchableOpacity
+                  style={[styles.inputIconButton, Styles.center]}
+                >
+                  <Feather name="mail" size={24} color="black" />
+                </TouchableOpacity>
+                <TextInput style={styles.input} placeholder={t("form.email")} />
+              </View>
+
+              <View style={{ marginVertical: 3 }} />
+
+              <View style={[Styles.center, styles.inputArena]}>
+                <TouchableOpacity
+                  style={[styles.inputIconButton, Styles.center]}
+                >
+                  <MaterialCommunityIcons
+                    name="form-textbox-password"
+                    size={24}
+                    color="black"
+                  />
+                </TouchableOpacity>
+                <TextInput style={styles.input} placeholder={"Əvvəlki şifrə"} />
+              </View>
+
+              <View style={{ marginVertical: 3 }} />
+
+              <View style={[Styles.center, styles.inputArena]}>
+                <TouchableOpacity
+                  style={[styles.inputIconButton, Styles.center]}
+                >
+                  <MaterialCommunityIcons
+                    name="form-textbox-password"
+                    size={24}
+                    color="black"
+                  />
+                </TouchableOpacity>
+                <TextInput style={styles.input} placeholder={"Yeni şifrə"} />
+              </View>
+
+              <View style={{ marginVertical: 3 }} />
+
+              <View style={[Styles.center, styles.inputArena]}>
+                <TouchableOpacity
+                  style={[styles.inputIconButton, Styles.center]}
+                >
+                  <MaterialCommunityIcons
+                    name="form-textbox-password"
+                    size={24}
+                    color="black"
+                  />
+                </TouchableOpacity>
+                <TextInput
+                  style={styles.input}
+                  placeholder={"Yeni şifrənin təkrarı"}
+                />
+              </View>
+            </View>
+          </View>
+
+          <View style={{ flex: 0.1 }}>
+            <View
+              style={[
+                Styles.center,
+                {
+                  flex: 1,
+                },
+              ]}
+            >
+              <TouchableOpacity
+                style={[Styles.center, styles.button]}
+                onPress={() => this.props.navigation.navigate("OneCheck")}
+              >
+                <TextComponent color={Colors.white} size={FontSize.xl}>
+                  {t("buttons.submit")}
+                </TextComponent>
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          <View style={{ flex: 0.1 }} />
         </View>
       </View>
     );
@@ -185,5 +282,33 @@ const styles = StyleSheet.create({
     bottom: 0,
     right: 11,
     backgroundColor: "transparent",
+  },
+
+  inputArena: {
+    width: "100%",
+    height: 50,
+    flexDirection: "row",
+    justifyContent: "space-around",
+  },
+  inputIconButton: {
+    width: 50,
+    height: 50,
+    backgroundColor: Colors.primary2,
+  },
+  input: {
+    width: width - 70,
+    height: "100%",
+    borderBottomColor: Colors.primary2,
+    borderBottomWidth: 2,
+    paddingLeft: 11,
+    fontSize: FontSize.m,
+    fontFamily: "RobotoMono_medium",
+  },
+
+  button: {
+    width: width / 1.25,
+    height: 50,
+    backgroundColor: Colors.primary2,
+    borderRadius: 15,
   },
 });
